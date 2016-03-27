@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Angularjs-PHP demo</title>
+    <style>
+        ul {
+            border: 1px solid orange;
+        }
+    </style>
+</head>
+
+<body ng-controller="CountryController as countryCtrl">
+    <h1>Fun with Countries</h1>
+
+    <ul>
+        <li ng-repeat="country in countryCtrl.countries">
+            {{country.name}}
+            <ul ng-show="country.states.length>0">
+                <li ng-repeat="state in country.states">{{state.name}}</li>
+            </ul>
+
+        </li>
+    </ul>
+    <img ng-src="{{countryCtrl.logo}}" alt="logo">
+    <script src="angularjs/angular.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

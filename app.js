@@ -1,23 +1,51 @@
 var app = angular.module('app', []);
 
-app.controller("CountryController", function() {
+
+//定义一个服务
+app.factory('countryService', function($http) {
+    return {
+        getCountries: function() {
+            return $http.get("services/getCountries.php");
+        }
+    }
+});
+app.controller("CountryController", function(countryService) {
     this.logo = "http://www.cnblogs.com/images/logo_small.gif";
 
-    this.countries = [
-        {
-            name: "Germany",
-            code: "de",
-            states: [{ name: 'Bavaria' }, { name: "Berlin" }]
-        },
-        {
-            name: "United States",
-            code: "us",
-            states: [{ name: 'Bavaria' }, { name: "Berlin" }]
-        },
-        {
-            name: "China",
-            code: "cn",
-            states: [{ name: 'jiangsu' }, { name: "jiangxi" }]
-        }
-    ]
+    //1.直接初始化数据
+    // this.countries = [
+    //     {
+    //         name: "Germany",
+    //         code: "de",
+    //         states: [{ name: 'Bavaria' }, { name: "Berlin" }]
+    //     },
+    //     {
+    //         name: "United States",
+    //         code: "us",
+    //         states: [{ name: 'Bavaria' }, { name: "Berlin" }]
+    //     },
+    //     {
+    //         name: "China",
+    //         code: "cn",
+    //         states: [{ name: 'jiangsu' }, { name: "jiangxi" }]
+    //     }
+    // ];
+
+    //2.在controller里面调用$http请求
+    // var that = this;
+
+    // $http({
+    //     method: "GET",
+    //     url: "services/getCountries.php"
+    // }).success(function(data) {
+    //     //this.countries=data;//这里的this是全局windows对象
+    //     that.countries = data;
+    // });
+
+    //3.将$http请求放到service中
+
+    var that = this;
+    countryService.getCountries().success(function(data) {
+        that.countries = data;
+    });
 });

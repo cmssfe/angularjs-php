@@ -1,4 +1,4 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngRoute']);
 
 
 //定义一个服务
@@ -49,13 +49,38 @@ app.controller("CountryController", function(countryService) {
         that.countries = data;
     });
 
-    this.newState = "";
 
-    this.addStateTo = function(country) {
-        if (!country.states) {
-            country.states = [];
-        }
-        country.states.push({ name: this.newState });
-        this.newState="";
+
+
+});
+
+// app.controller('StateController', function() {
+
+// });
+
+app.directive('stateView', function() {
+    return {
+        restrict: 'E',
+        templateUrl: "state-view.html",
+        controller: function() {
+            this.addStateTo = function(country) {
+                if (!country.states) {
+                    country.states = [];
+                }
+                country.states.push({ name: this.newState });
+                this.newState = "";
+            }
+        },
+        controllerAs: 'stateCtrl'
     }
+});
+
+app.config(function($routeProvider){
+    $routeProvider.when('/states/:countryCode',{
+        templateUrl:"state-view.html",
+        controller:function($routeParams){
+            alert("hello world.");
+        },
+        controllerAs:'stateCtrl'
+    });
 });

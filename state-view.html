@@ -1,0 +1,7 @@
+<div>
+    <ul ng-show="country.states.length>0">
+        <li ng-repeat="state in country.states">{{state.name}}</li>
+    </ul>
+    <input type="text" name="state" ng-model="stateCtrl.newState">
+    <a href="javascript:void(0)" ng-click="stateCtrl.addStateTo(country)">Add State</a>
+</div>

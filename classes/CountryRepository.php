@@ -30,5 +30,20 @@ class CountryRepository{
         }
         return self::$countries;
     }
+    
+    public static function getStates($countryCode){
+        if(count(self::$countries)===0){
+            self::init();
+        }
+        $country=array_filter(self::$countries,function($c) use ($countryCode){
+            return $c->code===$countryCode;
+        });
+        if(count($country)===0){
+            return array();
+        }
+        $firstCountry=array_shift($country);
+        
+        return $firstCountry->states;
+    }
 }
 ?>

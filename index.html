@@ -17,17 +17,15 @@
     <ul>
         <li ng-repeat="country in countryCtrl.countries">
             {{country.name}}
-            <ul ng-show="country.states.length>0">
-                <li ng-repeat="state in country.states">{{state.name}}</li>
-            </ul>
-            <input type="text" name="state" ng-model="countryCtrl.newState">
-            <a href="javascript:void(0)" ng-click="countryCtrl.addStateTo(country)">Add State{{cuntryCtrl.newState}}</a>
+            
+            <a href="" ng-href="#/states/{{country.code}}">View State</a>
         </li>
     </ul>
     <img ng-src="{{countryCtrl.logo}}" alt="logo">
 
 
     <script src="angularjs/angular.js"></script>
+    <script src="angularjs/angular-route.js"></script>
     <script src="app.js"></script>
 </body>
 

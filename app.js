@@ -48,4 +48,14 @@ app.controller("CountryController", function(countryService) {
     countryService.getCountries().success(function(data) {
         that.countries = data;
     });
+
+    this.newState = "";
+
+    this.addStateTo = function(country) {
+        if (!country.states) {
+            country.states = [];
+        }
+        country.states.push({ name: this.newState });
+        this.newState="";
+    }
 });

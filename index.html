@@ -8,21 +8,29 @@
         ul {
             border: 1px solid orange;
         }
+        .col{
+            width: 50%;
+            float: left;
+        }
     </style>
 </head>
 
-<body ng-controller="CountryController as countryCtrl">
+<body>
     <h1>Fun with Countries</h1>
 
-    <ul>
+    <ul ng-controller="CountryController as countryCtrl" class="col">
         <li ng-repeat="country in countryCtrl.countries">
             {{country.name}}
-            
             <a href="" ng-href="#/states/{{country.code}}">View State</a>
+            
         </li>
+        <img ng-src="{{countryCtrl.logo}}" alt="logo">
     </ul>
-    <img ng-src="{{countryCtrl.logo}}" alt="logo">
-
+    
+    
+    <div class="col" ng-view>
+        
+    </div>
 
     <script src="angularjs/angular.js"></script>
     <script src="angularjs/angular-route.js"></script>

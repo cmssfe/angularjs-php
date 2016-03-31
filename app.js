@@ -6,6 +6,11 @@ app.factory('countryService', function($http) {
     return {
         getCountries: function() {
             return $http.get("services/getCountries.php");
+        },
+        
+        getStates: function(countryCode) {
+            return $http.get("services/getStates.php?countryCode="+
+            encodeURIComponent(countryCode));
         }
     }
 });
@@ -58,28 +63,42 @@ app.controller("CountryController", function(countryService) {
 
 // });
 
-app.directive('stateView', function() {
-    return {
-        restrict: 'E',
-        templateUrl: "state-view.html",
-        controller: function() {
-            this.addStateTo = function(country) {
-                if (!country.states) {
-                    country.states = [];
-                }
-                country.states.push({ name: this.newState });
-                this.newState = "";
-            }
-        },
-        controllerAs: 'stateCtrl'
-    }
-});
+// app.directive('stateView', function() {
+//     return {
+//         restrict: 'E',
+//         templateUrl: "state-view.html",
+//         controller: function() {
+//             this.addStateTo = function(country) {
+//                 if (!country.states) {
+//                     country.states = [];
+//                 }
+//                 country.states.push({ name: this.newState });
+//                 this.newState = "";
+//             }
+//         },
+//         controllerAs: 'stateCtrl'
+//     }
+// });
 
 app.config(function($routeProvider){
     $routeProvider.when('/states/:countryCode',{
         templateUrl:"state-view.html",
-        controller:function($routeParams){
-            alert("hello world.");
+        controller:function($routeParams,countryService){
+            this.params=$routeParams;
+            var that=this;
+            
+            countryService.getStates(this.params.countryCode||'').success(function(data){
+                that.states=data;
+                
+            });
+            
+            this.addStateTo = function(country) {
+                if (!this.states) {
+                    this.states = [];
+                }
+                this.states.push({ name: this.newState });
+                this.newState = "";
+            }
         },
         controllerAs:'stateCtrl'
     });

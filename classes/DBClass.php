@@ -1,6 +1,6 @@
 <?php
 class DBClass{
-    private static $DB="sqlite:/Users/lee/Documents/angularjs-php/db/countries.db";
+    private static $DB="sqlite:/Program Files (x86)/Apache Software Foundation/Apache2.2/htdocs/angularjs-php/db/countries.db";
     
     private static $DB_USERNAME='';
     private static $DB_PASSWORD='';
@@ -15,9 +15,9 @@ class DBClass{
         if(self::$db===null){
             self::connect();
         }
-        var_dump(self::$db);
         
         $statement=self::$db->prepare($sql);
+        
         $statement->execute($values);
         return $statement;
     }

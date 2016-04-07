@@ -25,7 +25,7 @@ class CountryRepository{
         // self::$countries=$countries;
         
         DBHelper::resetDB();
-        DBHeloper::addCountry(
+        DBHelper::addCountry(
             new Country('United States','us',array(
                 new State('California','ca'),new State('North Dakota'),new State('Wyoming')
             ))
@@ -33,9 +33,9 @@ class CountryRepository{
     }
     
     public static function getCountries(){
-        // if(count(self::$countries)===0){
-        //    self::init(); 
-        // }
+        if(count(self::$countries)===0){
+           self::init(); 
+        }
         // return self::$countries;
         return DBHelper::getCountries();
     }

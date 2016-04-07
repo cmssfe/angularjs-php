@@ -5,15 +5,15 @@ require_once 'State.php';
 
 class DBHelper{
     public static function resetDB(){
-        DBClass::execute('CREATE TABLE countries(
-            name VARCHAR(50),
-            code VARCHAR(10) PRIMARY KEY
-        )');
         
-        DBClass::execute('CREATE TABLE states(
-            name VARCHAR(50),
-            code VARCHAR(10)
-        )');
+        // DBClass::execute('CREATE TABLE countries(
+        //     name VARCHAR(50),
+        //     code VARCHAR(10) PRIMARY KEY)');
+        
+        // DBClass::execute('CREATE TABLE states(
+        //     name VARCHAR(50),
+        //     code VARCHAR(10)
+        // )');
     }
     
     public static function getCountries(){

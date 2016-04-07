@@ -11,6 +11,11 @@ app.factory('countryService', function($http) {
         getStates: function(countryCode) {
             return $http.get("services/getStates.php?countryCode="+
             encodeURIComponent(countryCode));
+        },
+        addState: function(name,countryCode) {
+            return $http.get("services/addState.php?name="+
+            encodeURIComponent(name)+"&countryCode="+
+            encodeURIComponent(countryCode));
         }
     }
 });
@@ -97,6 +102,9 @@ app.config(function($routeProvider){
                     this.states = [];
                 }
                 this.states.push({ name: this.newState });
+                
+                countryService.addState(this.newState,this.params.countryCode);
+                
                 this.newState = "";
             }
         },
